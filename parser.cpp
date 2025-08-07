@@ -1,7 +1,6 @@
 #include "parser.h"
-#include <stdexcept>
-#include <iostream>
-
+#include<bits/stdc++.h>
+using namespace std;
 size_t index = 0;
 
 Token expect(const std::vector<Token>& tokens, TokenType type) {
@@ -10,8 +9,10 @@ Token expect(const std::vector<Token>& tokens, TokenType type) {
     return tokens[index++];
 }
 
-ConditionExpression* parseConditionExpression(const std::vector<Token>& tokens, size_t& idx) {
-    ConditionExpression* expr = new ConditionExpression();
+// Use smart pointers for ConditionExpression to avoid memory leaks
+#include <memory>
+std::unique_ptr<ConditionExpression> parseConditionExpression(const std::vector<Token>& tokens, size_t& idx) {
+    auto expr = std::make_unique<ConditionExpression>();
 
     expr->left.value = expect(tokens, TokenType::IDENTIFIER).value;
     expr->left.type = TokenType::IDENTIFIER;
@@ -62,7 +63,7 @@ SelectStatement parseSelect(const std::vector<Token>& tokens, SymbolTable& symTa
 
     if (tokens[index].type == TokenType::WHERE) {
         ++index;
-        stmt.whereClause = parseConditionExpression(tokens, index);
+        stmt.whereClause = parseConditionExpression(tokens, index).release();
     } else {
         stmt.whereClause = nullptr;
     }
@@ -137,7 +138,7 @@ UpdateStatement parseUpdate(const std::vector<Token>& tokens, SymbolTable& symTa
 
     if (tokens[index].type == TokenType::WHERE) {
         ++index;
-        stmt.whereClause = parseConditionExpression(tokens, index);
+        stmt.whereClause = parseConditionExpression(tokens, index).release();
     } else {
         stmt.whereClause = nullptr;
     }
@@ -161,7 +162,7 @@ DeleteStatement parseDelete(const std::vector<Token>& tokens, SymbolTable& symTa
 
     if (tokens[index].type == TokenType::WHERE) {
         ++index;
-        stmt.whereClause = parseConditionExpression(tokens, index);
+        stmt.whereClause = parseConditionExpression(tokens, index).release();
     } else {
         stmt.whereClause = nullptr;
     }

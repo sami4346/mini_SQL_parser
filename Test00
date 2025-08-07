@@ -1,0 +1,46 @@
+============================================
+Tokens:
++----------------+--------------+
+| Token          | Type         |
++----------------+--------------+
+| SELECT         | SELECT       |
+| name           | IDENTIFIER   |
+| ,              | COMMA        |
+| age            | IDENTIFIER   |
+| FROM           | FROM         |
+| users          | IDENTIFIER   |
+| WHERE          | WHERE        |
+| age            | IDENTIFIER   |
+| >              | GREATER      |
+| 30             | NUMBER       |
+| AND            | AND          |
+| salary         | IDENTIFIER   |
+| <              | LESS         |
+| 5000           | NUMBER       |
+| ;              | SEMICOLON    |
++----------------+--------------+
+
+Parsed Statement (AST):
+--------------------------------------------
+Type: SELECT
+Columns:
+  - name
+  - age
+Table: users
+WHERE: age > 30 AND salary < 5000
+WHERE (Tree):
+    Condition: age > 30
+    LogicalOp: AND
+        Condition: salary < 5000
+
+WHERE (Flat): age > 30 AND salary < 5000
+--------------------------------------------
+
+
+Symbol Table:
+--------------------------------------------
+Table Name: users
+Columns:
+  - age
+  - name
+--------------------------------------------

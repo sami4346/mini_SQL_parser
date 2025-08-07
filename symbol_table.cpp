@@ -1,5 +1,7 @@
 #include "symbol_table.h"
-
+#include<bits/stdc++.h>
+using namespace std;
+// Implementation of SymbolTable methods
 void SymbolTable::addTable(const std::string& tableName) {
     if (tableColumns.find(tableName) == tableColumns.end()) {
         tableColumns[tableName] = std::unordered_set<std::string>();
@@ -26,19 +28,19 @@ std::vector<std::string> SymbolTable::getColumns(const std::string& tableName) c
     return columns;
 }
 
-void SymbolTable::print() const {
-    std::cout << "Symbol Table:\n";
-    std::cout << "--------------------------------------------\n";
+void SymbolTable::print(std::ostream& out) const {
+    out << "Symbol Table:\n";
+    out << "--------------------------------------------\n";
     for (const auto& pair : tableColumns) {
-        std::cout << "Table Name: " << pair.first << "\n";
-        std::cout << "Columns:\n";
+        out << "Table Name: " << pair.first << "\n";
+        out << "Columns:\n";
         if (pair.second.size() == 1 && pair.second.count("*") == 1) {
-            std::cout << "  ALL (*)\n";
+            out << "  ALL (*)\n";
         } else {
             for (const auto& col : pair.second) {
-                std::cout << "  - " << col << "\n";
+                out << "  - " << col << "\n";
             }
         }
-        std::cout << "--------------------------------------------\n";
+        out << "--------------------------------------------\n";
     }
 }

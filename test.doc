@@ -1,16 +1,15 @@
 Command to run the project - 
-g++ -o sql_parser.exe main.cpp parser.cpp tokenizer.cpp symbol_table.cpp
-.\sql_parser.exe
+g++ main.cpp parser.cpp symbol_table.cpp tokenizer.cpp -o sql_parser.exe;.\sql_parser.exe
 
 SELECT name, age FROM users WHERE age > 30 AND salary < 5000;
-SELECT * FROM products WHERE price > 100 OR stock = 0; (DONE)
+SELECT * FROM products WHERE price > 100 OR stock = 0; 
 
-INSERT INTO users (name, age, city) VALUES ('Alice', 30, 'NYC');(DONE)
-INSERT INTO employees (id, name, salary, department, is_active) VALUES (101, 'John Doe', 75000.50, 'Engineering', true);(DONE)
+INSERT INTO users (name, age, city) VALUES ('Alice', 30, 'NYC');
+INSERT INTO employees (id, name, salary, department, is_active) VALUES (101, 'John Doe', 75000.50, 'Engineering', true);
 
-UPDATE inventory SET quantity = 0 WHERE product = 'Battery' AND warehouse = 'W2';(DONE)
-UPDATE users SET age = 31, city = 'Boston' WHERE name = 'Alice';(DONE)
+UPDATE inventory SET quantity = 0 WHERE product = 'Battery' AND warehouse = 'W2';
+UPDATE users SET age = 31, city = 'Boston' WHERE name = 'Alice';
 
-DELETE FROM users WHERE age < 20 OR city = 'Chicago';(DONE)
-DELETE FROM orders WHERE status = 'Cancelled' AND order_date < '2024-01-01';(DONE)
+DELETE FROM users WHERE age < 20 OR city = 'Chicago';
+DELETE FROM orders WHERE status = 'Cancelled' AND order_date < '2024-01-01';
 

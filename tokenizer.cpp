@@ -1,15 +1,20 @@
+
 #include "tokenizer.h"
 #include <cctype>
-#include <sstream>
+#include <string>
+#include <vector>
+using namespace std;
 
-std::string toLower(const std::string& s) {
-    std::string out = s;
-    for (char& c : out) c = std::tolower(c);
+// Converts a string to lowercase
+string toLower(const string& s) {
+    string out = s;
+    for (char& c : out) c = tolower(c);
     return out;
 }
 
-TokenType keywordToToken(const std::string& word) {
-    std::string lw = toLower(word);
+// Maps keywords to TokenType
+TokenType keywordToToken(const string& word) {
+    string lw = toLower(word);
     if (lw == "select") return TokenType::SELECT;
     if (lw == "from") return TokenType::FROM;
     if (lw == "where") return TokenType::WHERE;
@@ -25,9 +30,8 @@ TokenType keywordToToken(const std::string& word) {
     return TokenType::IDENTIFIER;
 }
 
-#include <iostream>
-
-std::string tokenTypeToString(TokenType type) {
+// Converts TokenType to string for display
+string tokenTypeToString(TokenType type) {
     switch (type) {
         case TokenType::SELECT: return "SELECT";
         case TokenType::FROM: return "FROM";
@@ -62,8 +66,8 @@ std::string tokenTypeToString(TokenType type) {
     }
 }
 
-std::vector<Token> tokenize(const std::string& input) {
-    std::vector<Token> tokens;
+vector<Token> tokenize(const string& input) {
+    vector<Token> tokens;
     size_t i = 0;
     while (i < input.length()) {
         char c = input[i];
@@ -72,16 +76,16 @@ std::vector<Token> tokenize(const std::string& input) {
             continue;
         }
 
-        if (std::isalpha(c)) {
-            std::string word;
-            while (i < input.length() && (std::isalnum(input[i]) || input[i] == '_'))
+        if (isalpha(c)) {
+            string word;
+            while (i < input.length() && (isalnum(input[i]) || input[i] == '_'))
                 word += input[i++];
             TokenType type = keywordToToken(word);
             tokens.push_back({ type, word });
-        } else if (std::isdigit(c)) {
-            std::string number;
+        } else if (isdigit(c)) {
+            string number;
             bool dotEncountered = false;
-            while (i < input.length() && (std::isdigit(input[i]) || (input[i] == '.' && !dotEncountered))) {
+            while (i < input.length() && (isdigit(input[i]) || (input[i] == '.' && !dotEncountered))) {
                 if (input[i] == '.') {
                     dotEncountered = true;
                 }
@@ -89,7 +93,7 @@ std::vector<Token> tokenize(const std::string& input) {
             }
             tokens.push_back({ TokenType::NUMBER, number });
         } else if (c == '\'') {
-            std::string str;
+            string str;
             ++i; // skip opening quote
             while (i < input.length() && input[i] != '\'') {
                 str += input[i++];
@@ -123,7 +127,7 @@ std::vector<Token> tokenize(const std::string& input) {
                 tokens.push_back({ TokenType::NOT_EQUAL, "!=" });
                 i += 2;
             } else {
-                tokens.push_back({ TokenType::UNKNOWN, std::string(1, c) });
+                tokens.push_back({ TokenType::UNKNOWN, string(1, c) });
                 ++i;
             }
         } else if (c == '=') {
@@ -133,7 +137,7 @@ std::vector<Token> tokenize(const std::string& input) {
         } else if (c == ')') {
             tokens.push_back({ TokenType::RPAREN, ")" }); ++i;
         } else {
-            tokens.push_back({ TokenType::UNKNOWN, std::string(1, c) }); ++i;
+            tokens.push_back({ TokenType::UNKNOWN, string(1, c) }); ++i;
         }
     }
     tokens.push_back({ TokenType::END, "" });

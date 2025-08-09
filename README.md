@@ -4,6 +4,7 @@ A lightweight educational project that demonstrates how basic SQL statements are
 
 ---
 
+
 ## 🚀 Features
 
 - **Tokenization**:  
@@ -19,20 +20,27 @@ A lightweight educational project that demonstrates how basic SQL statements are
 - **Condition Parsing**:  
   Supports logical expressions using `AND`, `OR`.
 
+- **Boolean Type Support**:  
+  Recognizes and parses boolean literals (`true`, `false`).
+
 - **Symbol Table**:  
-  Maintains information about tables and their columns for semantic validation.
+  Maintains information about tables and their columns for semantic validation. Now shows detailed output and supports export to file.
 
 - **Validation**:  
   Ensures referenced tables and columns exist.
 
 - **Interactive Mode**:  
-  Accepts multiple SQL queries from the command line until a blank line is entered.
+  Accepts multiple SQL queries from the command line. Supports the `EXPORT` command to save the latest output to a file.
+
+- **WHERE Clause Output**:  
+  Displays both tree and flat representations of complex WHERE conditions for better understanding.
 
 - **Output**:
   - Token list with types
   - AST structure
-  - Symbol table
+  - Symbol table (detailed)
   - Validation results or error messages
+  - Exportable output
 
 ---
 
